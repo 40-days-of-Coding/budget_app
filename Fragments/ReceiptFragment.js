@@ -27,7 +27,7 @@ const ReceiptFragment = () => {
                     <TouchableOpacity
                         onPress={() => setModalVisibility(true)}
                         activeOpacity={0.9}
-                        className="mr-5 px-3 py-2 bg-blue-500">
+                        className="mr-5 rounded-md px-3 py-2 bg-blue-500">
                         <Icon type="ionicon" name="add-outline" color="white"/>
                     </TouchableOpacity>
                 </View>
@@ -87,27 +87,36 @@ const ReceiptFragment = () => {
                     time="8:12 am"
                     payment_method="Cheque"
                     date="21/07/2023"
-                    classes="mb-20"
+                    classes="mb-16"
                     amount="1009.00"
                 />
             </ScrollView>
             <Modal
                 className=""
                 visible={modalVisible}
+                animationType="fade"
+                transparent
+                onRequestClose={() => setModalVisibility(false)}>
+                <Pressable
+                    className="h-full bg-gray-600 opacity-60"
+                    onPress={() => setModalVisibility(false)}>
+                </Pressable>
+            </Modal>
+            <Modal
+                className=""
+                visible={modalVisible}
                 animationType="slide"
                 transparent
-                onRequestClose={() => setModalVisibility(false)}
-            >
+                onRequestClose={() => setModalVisibility(false)}>
                 <Pressable
-                    className="h-60 bg-black opacity-60"
-                    onPress={() => setModalVisibility(false)}
-                >
+                    className="h-60"
+                    onPress={() => setModalVisibility(false)}>
 
                 </Pressable>
-                <View className="flex-1 bg-white">
+                <View className="flex-1 rounded-t-xl bg-white">
                     <View className="items-center text-center border-b border-gray-200">
                         <View className="flex-row items-center">
-                            <Text className="flex-1 text-center text-2xl py-3">
+                            <Text className="flex-1 font-bold text-center text-2xl py-3">
                                 Add Receipt
                             </Text>
                             <TouchableOpacity
@@ -117,6 +126,9 @@ const ReceiptFragment = () => {
                                 <Icon type="ionicon" color="blue" name="close-outline"/>
                             </TouchableOpacity>
                         </View>
+                    </View>
+                    <View>
+
                     </View>
                 </View>
             </Modal>
