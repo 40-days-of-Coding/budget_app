@@ -18,7 +18,11 @@ const MainScreen = () => {
     }, []);
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={{
+            tabBarStyle: { height: 60},
+        }}
+        >
             <Tab.Screen
                 name="Receipts"
                 component={ReceiptFragment}

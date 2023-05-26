@@ -1,9 +1,17 @@
-import {View, Text, TouchableOpacity, ScrollView, Modal, Pressable} from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    Modal,
+    Pressable,
+} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {useLayoutEffect, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
+import InputFieldComponent from "../Components/InputFieldComponent";
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
@@ -27,7 +35,7 @@ const ReceiptFragment = () => {
                     <TouchableOpacity
                         onPress={() => setModalVisibility(true)}
                         activeOpacity={0.9}
-                        className="mr-5 px-3 py-2 bg-blue-500">
+                        className="mr-5 rounded-md px-3 py-2 bg-blue-500">
                         <Icon type="ionicon" name="add-outline" color="white"/>
                     </TouchableOpacity>
                 </View>
@@ -87,27 +95,37 @@ const ReceiptFragment = () => {
                     time="8:12 am"
                     payment_method="Cheque"
                     date="21/07/2023"
-                    classes="mb-20"
+                    classes="mb-16"
                     amount="1009.00"
                 />
             </ScrollView>
             <Modal
                 className=""
                 visible={modalVisible}
+                animationType="fade"
+                transparent
+                onRequestClose={() => setModalVisibility(false)}>
+                <Pressable
+                    className="h-full bg-gray-600 opacity-60"
+                    onPress={() => setModalVisibility(false)}>
+                </Pressable>
+            </Modal>
+
+            <Modal
+                className=""
+                visible={modalVisible}
                 animationType="slide"
                 transparent
-                onRequestClose={() => setModalVisibility(false)}
-            >
-                <Pressable
-                    className="h-60 bg-black opacity-60"
-                    onPress={() => setModalVisibility(false)}
-                >
+                onRequestClose={() => setModalVisibility(false)}>
 
+                <Pressable
+                    className="h-60"
+                    onPress={() => setModalVisibility(false)}>
                 </Pressable>
-                <View className="flex-1 bg-white">
+                <View className="flex-1 h-72 rounded-t-xl bg-white">
                     <View className="items-center text-center border-b border-gray-200">
                         <View className="flex-row items-center">
-                            <Text className="flex-1 text-center text-2xl py-3">
+                            <Text className="flex-1 font-bold text-center text-2xl py-3">
                                 Add Receipt
                             </Text>
                             <TouchableOpacity
@@ -118,7 +136,15 @@ const ReceiptFragment = () => {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <View>
+
+                        <InputFieldComponent label="Name:" placeholder="Name"/>
+                        <InputFieldComponent label="Name:" placeholder="Name"/>
+                        <InputFieldComponent label="Name:" placeholder="Name"/>
+
+                    </View>
                 </View>
+
             </Modal>
         </SafeAreaView>
     );
