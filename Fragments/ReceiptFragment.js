@@ -105,9 +105,19 @@ const ReceiptFragment = () => {
 
                 </Pressable>
                 <View className="flex-1 bg-white">
-                    <Text>
-                        Modal
-                    </Text>
+                    <View className="items-center text-center border-b border-gray-200">
+                        <View className="flex-row items-center">
+                            <Text className="flex-1 text-center text-2xl py-3">
+                                Add Receipt
+                            </Text>
+                            <TouchableOpacity
+                                className="mr-3"
+                                onPress={() => setModalVisibility(false)}
+                            >
+                                <Icon type="ionicon" color="blue" name="close-outline"/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             </Modal>
         </SafeAreaView>
