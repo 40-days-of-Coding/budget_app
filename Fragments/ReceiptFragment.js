@@ -1,9 +1,17 @@
-import {View, Text, TouchableOpacity, ScrollView, Modal, Pressable} from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    Modal,
+    Pressable,
+} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {useLayoutEffect, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
+import InputFieldComponent from "../Components/InputFieldComponent";
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
@@ -102,18 +110,19 @@ const ReceiptFragment = () => {
                     onPress={() => setModalVisibility(false)}>
                 </Pressable>
             </Modal>
+
             <Modal
                 className=""
                 visible={modalVisible}
                 animationType="slide"
                 transparent
                 onRequestClose={() => setModalVisibility(false)}>
+
                 <Pressable
                     className="h-60"
                     onPress={() => setModalVisibility(false)}>
-
                 </Pressable>
-                <View className="flex-1 rounded-t-xl bg-white">
+                <View className="flex-1 h-72 rounded-t-xl bg-white">
                     <View className="items-center text-center border-b border-gray-200">
                         <View className="flex-row items-center">
                             <Text className="flex-1 font-bold text-center text-2xl py-3">
@@ -129,8 +138,13 @@ const ReceiptFragment = () => {
                     </View>
                     <View>
 
+                        <InputFieldComponent label="Name:" placeholder="Name"/>
+                        <InputFieldComponent label="Name:" placeholder="Name"/>
+                        <InputFieldComponent label="Name:" placeholder="Name"/>
+
                     </View>
                 </View>
+
             </Modal>
         </SafeAreaView>
     );

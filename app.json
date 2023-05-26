@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "budget_app",
-    "slug": "budget_app",
+    "slug": "receipt-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "48df2d26-89ae-45d4-9c90-ff447c0a7d92"
+      }
+    },
+    "owner": "papilio",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/48df2d26-89ae-45d4-9c90-ff447c0a7d92"
     }
   }
 }
