@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 
 const ReceiptComponent = (
     {
@@ -11,7 +11,10 @@ const ReceiptComponent = (
     }
 ) => {
     return (
-        <View className={`bg-white pl-3 py-2 ${classes} border-b border-gray-200`}>
+        <TouchableOpacity
+            className={`
+            bg-white pl-3 py-2 ${classes} 
+            border-b border-gray-200`}>
             <View className="flex-row ">
                 <Text className="text-xl font-bold">
                     {name}
@@ -42,7 +45,7 @@ const ReceiptComponent = (
                     {time}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
