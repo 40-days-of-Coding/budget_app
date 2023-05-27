@@ -2,20 +2,21 @@ import {
     View,
     Text,
     TouchableOpacity,
-    ScrollView,
-    Modal,
-    Pressable,
+    ScrollView
 } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import {useLayoutEffect, useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
-import InputFieldComponent from "../Components/InputFieldComponent";
+import RBSheet from "@nonam4/react-native-bottom-sheet";
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
     const [modalVisible, setModalVisibility] = useState(false);
+
+    // ref
+    const refRBSheet = useRef(null);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -33,7 +34,7 @@ const ReceiptFragment = () => {
                         </Text>
                     </View>
                     <TouchableOpacity
-                        onPress={() => setModalVisibility(true)}
+                        onPress={() => refRBSheet.current?.open()}
                         activeOpacity={0.9}
                         className="mr-5 rounded-md px-3 py-2 bg-blue-500">
                         <Icon type="ionicon" name="add-outline" color="white"/>
@@ -99,30 +100,22 @@ const ReceiptFragment = () => {
                     amount="1009.00"
                 />
             </ScrollView>
-            <Modal
-                className=""
-                visible={modalVisible}
-                animationType="fade"
-                transparent
-                onRequestClose={() => setModalVisibility(false)}>
-                <Pressable
-                    className="h-full bg-gray-600 opacity-60"
-                    onPress={() => setModalVisibility(false)}>
-                </Pressable>
-            </Modal>
-
-            <Modal
-                className=""
-                visible={modalVisible}
+            <RBSheet
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={false}
                 animationType="slide"
-                transparent
-                onRequestClose={() => setModalVisibility(false)}>
-
-                <Pressable
-                    className="h-60"
-                    onPress={() => setModalVisibility(false)}>
-                </Pressable>
-                <View className="flex-1 h-72 rounded-t-xl bg-white">
+                height={350}
+                customStyles={{
+                    container: {
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20,
+                    },
+                    draggableIcon: {
+                        backgroundColor: "#000"
+                    }
+                }}>
+                <View>
                     <View className="items-center text-center border-b border-gray-200">
                         <View className="flex-row items-center">
                             <Text className="flex-1 font-bold text-center text-2xl py-3">
@@ -130,22 +123,19 @@ const ReceiptFragment = () => {
                             </Text>
                             <TouchableOpacity
                                 className="mr-3"
-                                onPress={() => setModalVisibility(false)}
+                                onPress={() => refRBSheet.current?.close()}
                             >
                                 <Icon type="ionicon" color="blue" name="close-outline"/>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View>
+                    <ScrollView>
+                        <View className="flex-1 h-72 rounded-t-xl bg-white">
 
-                        <InputFieldComponent label="Name:" placeholder="Name"/>
-                        <InputFieldComponent label="Name:" placeholder="Name"/>
-                        <InputFieldComponent label="Name:" placeholder="Name"/>
-
-                    </View>
+                        </View>
+                    </ScrollView>
                 </View>
-
-            </Modal>
+            </RBSheet>
         </SafeAreaView>
     );
 };

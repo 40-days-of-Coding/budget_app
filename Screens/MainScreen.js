@@ -1,5 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ReceiptFragment from "../Fragments/ReceiptFragment";
+import Test from "../Fragments/Test";
 import ExpensesFragment from "../Fragments/ExpensesFragment";
 import {useLayoutEffect} from "react";
 import {useNavigation} from "@react-navigation/native";
@@ -20,7 +21,7 @@ const MainScreen = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-            tabBarStyle: { height: 60},
+            tabBarStyle: { height: 60 },
         }}
         >
             <Tab.Screen
