@@ -1,7 +1,6 @@
 import React, {useRef} from "react";
 import {View, Button, ScrollView} from "react-native";
 import RBSheet from "@nonam4/react-native-bottom-sheet";
-import InputFieldComponent from "../Components/InputFieldComponent";
 
 export default function Test() {
     const refRBSheet = useRef(null);
@@ -31,20 +30,7 @@ export default function Test() {
             >
                 <View>
                     <ScrollView>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
-                        <InputFieldComponent/>
+
                     </ScrollView>
                 </View>
             </RBSheet>
