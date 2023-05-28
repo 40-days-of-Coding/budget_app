@@ -174,6 +174,7 @@ const ReceiptFragment = () => {
                                         label="Payment Type"
                                         mode="outlined"
                                         outlineColor="gray"
+                                        editable={false}
                                         activeOutlineColor="gray"
                                         value={paymentMethod}
                                         right={
@@ -253,7 +254,7 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setDonationValue("Money");
-                                        refDonationType.current?.close()
+                                        refDonationType.current?.close();
                                     }
                                 }
                                 className="mt-1 border-b border-t border-gray-200 py-3 px-20">
@@ -263,7 +264,7 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setDonationValue("Item");
-                                        refDonationType.current?.close()
+                                        refDonationType.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
@@ -298,7 +299,7 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Cash");
-                                        refPaymentMethod.current?.close()
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mt-1 border-b border-t border-gray-200 py-3 px-20">
@@ -308,7 +309,7 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Cheque");
-                                        refPaymentMethod.current?.close()
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
@@ -318,7 +319,7 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Credit Card");
-                                        refPaymentMethod.current?.close()
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
@@ -328,7 +329,7 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Mobile Money");
-                                        refPaymentMethod.current?.close()
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
