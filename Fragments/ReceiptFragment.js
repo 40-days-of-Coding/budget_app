@@ -10,7 +10,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
 import RBSheet from "@nonam4/react-native-bottom-sheet";
-import {TextInput} from "react-native-paper";
+import {TextInput, TouchableRipple} from "react-native-paper";
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
@@ -55,12 +55,12 @@ const ReceiptFragment = () => {
                             Receipts
                         </Text>
                     </View>
-                    <TouchableOpacity
+                    <TouchableRipple
                         onPress={() => refRBSheet.current?.open()}
                         activeOpacity={0.9}
                         className="mr-5 rounded-md px-3 py-2 bg-blue-500">
                         <Icon type="ionicon" name="add-outline" color="white"/>
-                    </TouchableOpacity>
+                    </TouchableRipple>
                 </View>
                 {/* End Page Header */}
             </View>
@@ -149,12 +149,12 @@ const ReceiptFragment = () => {
                             <Text className="flex-1 font-bold ml-4 text-2xl py-3">
                                 Add Receipt
                             </Text>
-                            <TouchableOpacity
+                            <TouchableRipple
                                 className="mr-3"
                                 onPress={() => refRBSheet.current?.close()}
                             >
                                 <Icon type="ionicon" size={35} name="close-outline"/>
-                            </TouchableOpacity>
+                            </TouchableRipple>
                         </View>
                     </View>
                     <ScrollView>
@@ -252,7 +252,8 @@ const ReceiptFragment = () => {
                                     formValues.address = textValue;
                                 }}
                             />
-                            <TouchableOpacity
+                            <TouchableRipple
+                                rippleColor={"#bdbebe"}
                                 onPress={
                                     () => {
                                         alert("sent");
@@ -261,7 +262,7 @@ const ReceiptFragment = () => {
                                 }
                                 className="mb-1 mt-1 py-3 rounded-md px-3 mx-20 bg-blue-500" mode="contained">
                                 <Text className="text-white text-lg text-center">Save</Text>
-                            </TouchableOpacity>
+                            </TouchableRipple>
                         </View>
                     </ScrollView>
                 </View>
