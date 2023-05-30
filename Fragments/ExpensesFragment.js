@@ -5,12 +5,12 @@ import {
     ScrollView,
 } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import React, {useLayoutEffect, useReducer, useRef, useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
-import ReceiptComponent from "../Components/ReceiptComponent";
 import RBSheet from "@nonam4/react-native-bottom-sheet";
 import {TextInput, TouchableRipple} from "react-native-paper";
+import ExpenseComponent from "../Components/ExpenseComponent";
 
 const ExpensesFragment = () => {
     const navigation = useNavigation();
@@ -52,7 +52,7 @@ const ExpensesFragment = () => {
                 <View className="flex-row items-center space-x-2 border-gray-200 border-b pb-3">
                     <View className="flex-1">
                         <Text className="ml-5 text-2xl font-bold">
-                            Receipts
+                            Expenses
                         </Text>
                     </View>
                     <TouchableRipple
@@ -64,70 +64,68 @@ const ExpensesFragment = () => {
                 </View>
                 {/* End Page Header */}
             </View>
+            <View className="bg-gray-50">
+                <View className="flex-row items-center h-10 ml-5">
+                    <Text className="text-lg font-bold">Total: </Text>
+                    <Text className="text-lg font-bold">GHs. 2000.00</Text>
+                </View>
+            </View>
 
-            {/* Receipts */}
+            {/* Expenses */}
             <ScrollView>
-                <ReceiptComponent
-                    name="Honourable Pharaoh"
+                <ExpenseComponent
+                    expense="Canopies"
                     amount="1000.00"
-                    payment_method="cash"
                     date="12/10/2023"
                     time="1:09 pm"
                 />
-                <ReceiptComponent
-                    name="Samuel John"
+                <ExpenseComponent
+                    expense="Samuel John"
                     amount="5000.00"
-                    payment_method="Bank Transfer"
                     date="03/01/2023"
                     time="12:34 pm"
                 />
-                <ReceiptComponent
-                    name="Joseph Asemonu"
+                <ExpenseComponent
+                    expense="Joseph Asemonu"
                     amount="50.00"
-                    payment_method="Card"
                     time="5:21 am"
                     date="09/03/2023"
                 />
-                <ReceiptComponent
-                    name="Aaron Will Djaba"
+                <ExpenseComponent
+                    expense="Aaron Will Djaba"
                     time="8:12 am"
-                    payment_method="Cheque"
                     date="21/07/2023"
                     amount="100.00"
                 />
-                <ReceiptComponent
-                    name="Ben"
+                <ExpenseComponent
+                    expense="Ben"
                     time="8:12 am"
-                    payment_method="Cheque"
                     date="21/07/2023"
                     amount="19.00"
                 />
-                <ReceiptComponent
-                    name="Mary Cole"
+                <ExpenseComponent
+                    expense="Mary Cole"
                     time="8:12 am"
-                    payment_method="Cash"
                     date="21/07/2023"
                     amount="900.00"
                 />
-                <ReceiptComponent
-                    name="Will Perry"
+                <ExpenseComponent
+                    expense="Will Perry"
                     time="8:12 am"
-                    payment_method="Cheque"
                     date="21/07/2023"
                     amount="20.50"
                 />
-                <ReceiptComponent
-                    name="Maddy Nannie"
+                <ExpenseComponent
+                    expense="Maddy Nannie"
                     time="8:12 am"
-                    payment_method="Cheque"
                     date="21/07/2023"
                     classes="mb-16"
                     amount="1009.00"
                 />
             </ScrollView>
-            {/* End Receipts */}
+            {/* End Expenses */}
 
-            {/* Add Receipt Modal */}
+            {/* Add Expense Modal */}
             <RBSheet
                 ref={refRBSheet}
                 closeOnDragDown={true}
@@ -147,7 +145,7 @@ const ExpensesFragment = () => {
                     <View className="items-center text-center border-b border-gray-200">
                         <View className="flex-row items-center">
                             <Text className="flex-1 font-bold ml-4 text-2xl py-3">
-                                Add Receipt
+                                Add Expense
                             </Text>
                             <TouchableRipple
                                 className="mr-3"
@@ -267,7 +265,7 @@ const ExpensesFragment = () => {
                     </ScrollView>
                 </View>
             </RBSheet>
-            {/* End Add Receipt Modal */}
+            {/* End Add Expense Modal */}
 
             {/* Donation Type Modal */}
             <RBSheet
