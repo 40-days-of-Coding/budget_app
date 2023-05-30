@@ -1,10 +1,11 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ReceiptFragment from "../Fragments/ReceiptFragment";
-import Test from "../Fragments/Test";
+import Test from "../Fragments/Tests/Test";
 import ExpensesFragment from "../Fragments/ExpensesFragment";
 import {useLayoutEffect} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Icon} from "@rneui/base"
+import FormTest from "../Fragments/Tests/FormTest";
 
 const Tab = createBottomTabNavigator();
 

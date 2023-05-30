@@ -5,18 +5,34 @@ import {
     ScrollView,
 } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import React, {useLayoutEffect, useRef, useState} from "react";
+import React, {useLayoutEffect, useReducer, useRef, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
 import RBSheet from "@nonam4/react-native-bottom-sheet";
-import {TextInput, Button} from "react-native-paper";
+import {TextInput, TouchableRipple} from "react-native-paper";
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
     // states
-    const [donationValue, setDonationValue] = useState("Money");
+    const [donationType, setDonationType] = useState("Money");
     const [paymentMethod, setPaymentMethod] = useState("Cash");
+
+    let [
+        formValues,
+        setFormValues
+    ] = useState({
+        name: "",
+        donationType: {
+            money: true,
+            item: false
+        },
+        item: "",
+        quantity: "",
+        paymentMethod: "Cash",
+        amount: "",
+        address: "",
+    });
 
     // ref
     const refRBSheet = useRef(null);
@@ -39,12 +55,12 @@ const ReceiptFragment = () => {
                             Receipts
                         </Text>
                     </View>
-                    <TouchableOpacity
+                    <TouchableRipple
                         onPress={() => refRBSheet.current?.open()}
                         activeOpacity={0.9}
                         className="mr-5 rounded-md px-3 py-2 bg-blue-500">
                         <Icon type="ionicon" name="add-outline" color="white"/>
-                    </TouchableOpacity>
+                    </TouchableRipple>
                 </View>
                 {/* End Page Header */}
             </View>
@@ -133,19 +149,23 @@ const ReceiptFragment = () => {
                             <Text className="flex-1 font-bold ml-4 text-2xl py-3">
                                 Add Receipt
                             </Text>
-                            <TouchableOpacity
+                            <TouchableRipple
                                 className="mr-3"
                                 onPress={() => refRBSheet.current?.close()}
                             >
                                 <Icon type="ionicon" size={35} name="close-outline"/>
-                            </TouchableOpacity>
+                            </TouchableRipple>
                         </View>
                     </View>
                     <ScrollView>
+
                         <View className="flex-1 rounded-t-xl bg-white">
                             <TextInput
                                 className="mx-2 mb-1 bg-gray-50"
                                 placeholder="Name"
+                                onChangeText={(textValue) => {
+                                    formValues.name = textValue;
+                                }}
                                 label="Name"
                                 mode="outlined"
                                 outlineColor="gray"
@@ -156,7 +176,7 @@ const ReceiptFragment = () => {
                                 placeholder="Name"
                                 label="Donation Type"
                                 mode="outlined"
-                                value={donationValue}
+                                value={donationType}
                                 editable={false}
                                 right={
                                     <TextInput.Icon
@@ -166,14 +186,15 @@ const ReceiptFragment = () => {
                                 outlineColor="gray"
                                 activeOutlineColor="gray"
                             />
-                            {(donationValue === "Money") ?
+                            {(donationType === "Money") ?
                                 <>
                                     <TextInput
                                         className="mx-2 mb-1 bg-gray-50"
-                                        placeholder="Payment Type"
-                                        label="Payment Type"
+                                        placeholder="Payment Method"
+                                        label="Payment Method"
                                         mode="outlined"
                                         outlineColor="gray"
+                                        editable={false}
                                         activeOutlineColor="gray"
                                         value={paymentMethod}
                                         right={
@@ -191,6 +212,9 @@ const ReceiptFragment = () => {
                                         keyboardType="numeric"
                                         outlineColor="gray"
                                         activeOutlineColor="gray"
+                                        onChangeText={(textValue) => {
+                                            formValues.amount = textValue;
+                                        }}
                                     />
                                 </> : <>
                                     <TextInput
@@ -200,6 +224,9 @@ const ReceiptFragment = () => {
                                         mode="outlined"
                                         outlineColor="gray"
                                         activeOutlineColor="gray"
+                                        onChangeText={(textValue) => {
+                                            formValues.item = textValue;
+                                        }}
                                     />
                                     <TextInput
                                         className="mx-2 mb-1 bg-gray-50"
@@ -208,6 +235,9 @@ const ReceiptFragment = () => {
                                         mode="outlined"
                                         outlineColor="gray"
                                         activeOutlineColor="gray"
+                                        onChangeText={(textValue) => {
+                                            formValues.quantity = textValue;
+                                        }}
                                     />
                                 </>
                             }
@@ -218,12 +248,21 @@ const ReceiptFragment = () => {
                                 mode="outlined"
                                 outlineColor="gray"
                                 activeOutlineColor="gray"
+                                onChangeText={(textValue) => {
+                                    formValues.address = textValue;
+                                }}
                             />
-                            <TouchableOpacity
-                                onPress={() => alert("sent")}
-                                className="mb-1 py-3 rounded-md px-3 mx-20 bg-blue-500" mode="contained">
+                            <TouchableRipple
+                                rippleColor={"#bdbebe"}
+                                onPress={
+                                    () => {
+                                        alert("sent");
+                                        console.log(formValues)
+                                    }
+                                }
+                                className="mb-1 mt-1 py-3 rounded-md px-3 mx-20 bg-blue-500" mode="contained">
                                 <Text className="text-white text-lg text-center">Save</Text>
-                            </TouchableOpacity>
+                            </TouchableRipple>
                         </View>
                     </ScrollView>
                 </View>
@@ -252,8 +291,10 @@ const ReceiptFragment = () => {
                             <TouchableOpacity
                                 onPress={
                                     () => {
-                                        setDonationValue("Money");
-                                        refDonationType.current?.close()
+                                        setDonationType("Money");
+                                        formValues.donationType.money = true;
+                                        formValues.donationType.item = false;
+                                        refDonationType.current?.close();
                                     }
                                 }
                                 className="mt-1 border-b border-t border-gray-200 py-3 px-20">
@@ -262,8 +303,10 @@ const ReceiptFragment = () => {
                             <TouchableOpacity
                                 onPress={
                                     () => {
-                                        setDonationValue("Item");
-                                        refDonationType.current?.close()
+                                        setDonationType("Item");
+                                        formValues.donationType.item = true;
+                                        formValues.donationType.money = false;
+                                        refDonationType.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
@@ -298,7 +341,8 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Cash");
-                                        refPaymentMethod.current?.close()
+                                        formValues.paymentMethod = paymentMethod;
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mt-1 border-b border-t border-gray-200 py-3 px-20">
@@ -308,7 +352,8 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Cheque");
-                                        refPaymentMethod.current?.close()
+                                        formValues.paymentMethod = paymentMethod;
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
@@ -318,7 +363,8 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Credit Card");
-                                        refPaymentMethod.current?.close()
+                                        formValues.paymentMethod = paymentMethod;
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
@@ -328,7 +374,8 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setPaymentMethod("Mobile Money");
-                                        refPaymentMethod.current?.close()
+                                        formValues.paymentMethod = paymentMethod;
+                                        refPaymentMethod.current?.close();
                                     }
                                 }
                                 className="mb-3 border-b border-gray-200 py-3 px-20">
