@@ -5,7 +5,7 @@ import {
     ScrollView,
 } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import React, {useLayoutEffect, useReducer, useRef, useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
