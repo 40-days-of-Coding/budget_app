@@ -15,22 +15,25 @@ const MainScreen = () => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerShown: false // hiding or disabling the default header from react-native
+            headerShown: false, // hiding or disabling the default header from react-native
         })
     }, []);
 
     return (
         <Tab.Navigator
             screenOptions={{
-            tabBarStyle: { height: 60 },
-        }}
+                tabBarStyle: {
+                    height: 60,
+                    paddingBottom: 5,
+                },
+            }}
         >
             <Tab.Screen
                 name="Receipts"
                 component={ReceiptFragment}
                 options={{
                     tabBarIcon: ({color, size}) => (
-                        <Icon  name="receipt" color={color} size={size} />
+                        <Icon name="receipt" color={color} size={size}/>
                     )
                 }}
             />
@@ -39,7 +42,7 @@ const MainScreen = () => {
                 component={ExpensesFragment}
                 options={{
                     tabBarIcon: ({color, size}) => (
-                        <Icon type="font-awesome" name="book" color={color} size={size} />
+                        <Icon type="font-awesome" name="book" color={color} size={size}/>
                     )
                 }}
             />
