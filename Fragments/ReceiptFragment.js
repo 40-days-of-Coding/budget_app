@@ -11,6 +11,8 @@ import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
 import RBSheet from "@nonam4/react-native-bottom-sheet";
 import {TextInput, TouchableRipple} from "react-native-paper";
+import axios from 'axios';
+const baseUrl = 'https://0f19-102-176-65-86.ngrok-free.apps';
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
@@ -18,20 +20,89 @@ const ReceiptFragment = () => {
     const [donationType, setDonationType] = useState("Money");
     const [paymentMethod, setPaymentMethod] = useState("Cash");
 
+    const fetchReceipts = async () => {
+        const url = `${baseUrl}/receipts/`;
+        const response = await axios.get(url);
+        console.log(response.data);
+    };
+
+    fetchReceipts().then(r => console.log(r));
+
+    let receipts = [
+
+        {
+            name: "Honourable Pharaoh",
+            amount: "1000.00",
+            payment_method: "cash",
+            date: "12/10/2023",
+            time: "1:09 pm",
+        },
+        {
+            name: "Samuel John",
+            amount: "5000.00",
+            payment_method: "Bank Transfer",
+            date: "03/01/2023",
+            time: "12:34 pm",
+        },
+        {
+            name: "Joseph Asemonu",
+            amount: "50.00",
+            payment_method: "Card",
+            time: "5:21 am",
+            date: "09/03/2023",
+        },
+        {
+            name: "Aaron Will Djaba",
+            time: "8:12 am",
+            payment_method: "Cheque",
+            date: "21/07/2023",
+            amount: "100.00",
+        },
+        {
+            name: "Ben",
+            time: "8:12 am",
+            payment_method: "Cheque",
+            date: "21/07/2023",
+            amount: "19.00",
+        },
+        {
+            name: "Mary Cole",
+            time: "8:12 am",
+            payment_method: "Cash",
+            date: "21/07/2023",
+            amount: "900.00",
+        },
+        {
+            name: "Will Perry",
+            time: "8:12 am",
+            payment_method: "Cheque",
+            date: "21/07/2023",
+            amount: "20.50",
+        },
+        {
+            name: "Maddy Nannie",
+            time: "8:12 am",
+            payment_method: "Cheque",
+            date: "21/07/2023",
+            classes: "mb-24",
+            amount: "1009.00",
+        }
+    ]
+
     let [
         formValues,
         setFormValues
     ] = useState({
         name: "",
-        donationType: {
-            money: true,
-            item: false
-        },
-        item: "",
+        money: true,
+        item: false,
+        items: "",
         quantity: "",
         paymentMethod: "Cash",
         amount: "",
         address: "",
+        date: "",
+        time: ""
     });
 
     // ref
@@ -64,66 +135,40 @@ const ReceiptFragment = () => {
                 </View>
                 {/* End Page Header */}
             </View>
+            <View className="bg-gray-50">
+                <View className="flex-row items-center h-10 ml-5">
+                    <Text className="text-lg font-bold">Total: </Text>
+                    <Text className="text-lg font-bold">GHs. 2000.00</Text>
+                </View>
+            </View>
 
             {/* Receipts */}
             <ScrollView>
-                <ReceiptComponent
-                    name="Honourable Pharaoh"
-                    amount="1000.00"
-                    payment_method="cash"
-                    date="12/10/2023"
-                    time="1:09 pm"
-                />
-                <ReceiptComponent
-                    name="Samuel John"
-                    amount="5000.00"
-                    payment_method="Bank Transfer"
-                    date="03/01/2023"
-                    time="12:34 pm"
-                />
-                <ReceiptComponent
-                    name="Joseph Asemonu"
-                    amount="50.00"
-                    payment_method="Card"
-                    time="5:21 am"
-                    date="09/03/2023"
-                />
-                <ReceiptComponent
-                    name="Aaron Will Djaba"
-                    time="8:12 am"
-                    payment_method="Cheque"
-                    date="21/07/2023"
-                    amount="100.00"
-                />
-                <ReceiptComponent
-                    name="Ben"
-                    time="8:12 am"
-                    payment_method="Cheque"
-                    date="21/07/2023"
-                    amount="19.00"
-                />
-                <ReceiptComponent
-                    name="Mary Cole"
-                    time="8:12 am"
-                    payment_method="Cash"
-                    date="21/07/2023"
-                    amount="900.00"
-                />
-                <ReceiptComponent
-                    name="Will Perry"
-                    time="8:12 am"
-                    payment_method="Cheque"
-                    date="21/07/2023"
-                    amount="20.50"
-                />
-                <ReceiptComponent
-                    name="Maddy Nannie"
-                    time="8:12 am"
-                    payment_method="Cheque"
-                    date="21/07/2023"
-                    classes="mb-16"
-                    amount="1009.00"
-                />
+                {receipts?.reverse().map(
+                    (
+                        receipt,
+                        index,
+                        row
+                    ) =>
+                        (
+                            index + 1 === row.length ?
+                                <ReceiptComponent
+                                    key={index}
+                                    name={receipt.name}
+                                    amount={receipt.amount}
+                                    payment_method={receipt.payment_method}
+                                    date={receipt.date}
+                                    time={receipt.time}
+                                    classes="mb-24"
+                                /> : <ReceiptComponent
+                                    key={index}
+                                    name={receipt.name}
+                                    amount={receipt.amount}
+                                    payment_method={receipt.payment_method}
+                                    date={receipt.date}
+                                    time={receipt.time}
+                                />
+                        ))}
             </ScrollView>
             {/* End Receipts */}
 
@@ -225,7 +270,7 @@ const ReceiptFragment = () => {
                                         outlineColor="gray"
                                         activeOutlineColor="gray"
                                         onChangeText={(textValue) => {
-                                            formValues.item = textValue;
+                                            formValues.items = textValue;
                                         }}
                                     />
                                     <TextInput
@@ -257,7 +302,9 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         alert("sent");
-                                        console.log(formValues)
+                                        console.log(formValues);
+                                        receipts.push(formValues);
+                                        console.log(receipts)
                                     }
                                 }
                                 className="mb-1 mt-1 py-3 rounded-md px-3 mx-20 bg-blue-500" mode="contained">
@@ -292,8 +339,8 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setDonationType("Money");
-                                        formValues.donationType.money = true;
-                                        formValues.donationType.item = false;
+                                        formValues.money = true;
+                                        formValues.item = false;
                                         refDonationType.current?.close();
                                     }
                                 }
@@ -304,8 +351,8 @@ const ReceiptFragment = () => {
                                 onPress={
                                     () => {
                                         setDonationType("Item");
-                                        formValues.donationType.item = true;
-                                        formValues.donationType.money = false;
+                                        formValues.item = true;
+                                        formValues.money = false;
                                         refDonationType.current?.close();
                                     }
                                 }

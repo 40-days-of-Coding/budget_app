@@ -13,10 +13,63 @@ import {TextInput, TouchableRipple} from "react-native-paper";
 import ExpenseComponent from "../Components/ExpenseComponent";
 
 const ExpensesFragment = () => {
+    //navigation
     const navigation = useNavigation();
     // states
     const [donationType, setDonationType] = useState("Money");
     const [paymentMethod, setPaymentMethod] = useState("Cash");
+
+    let expenses = [
+        {
+            expense: "Canopies",
+            amount: "1000.00",
+            date: "12/10/2023",
+            time: "1:09 pm",
+        },
+        {
+            expense: "Samuel John",
+            amount: "5000.00",
+            date: "03/01/2023",
+            time: "12:34 pm",
+        },
+        {
+            expense: "Joseph Asemonu",
+            amount: "50.00",
+            time: "5:21 am",
+            date: "09/03/2023",
+        },
+        {
+            expense: "Aaron Will Djaba",
+            time: "8:12 am",
+            date: "21/07/2023",
+            amount: "100.00",
+        },
+        {
+            expense: "Ben",
+            time: "8:12 am",
+            date: "21/07/2023",
+            amount: "19.00",
+        },
+        {
+            expense: "Mary Cole",
+            time: "8:12 am",
+            date: "21/07/2023",
+            amount: "900.00",
+        },
+        {
+            expense: "Will Perry",
+            time: "8:12 am",
+            date: "21/07/2023",
+            amount: "20.50",
+        },
+        {
+            expense: "Maddy Nannie",
+            time: "8:12 am",
+            date: "21/07/2023",
+            classes: "mb-24",
+            amount: "1009.00",
+        }
+    ]
 
     let [
         formValues,
@@ -73,55 +126,33 @@ const ExpensesFragment = () => {
 
             {/* Expenses */}
             <ScrollView>
-                <ExpenseComponent
-                    expense="Canopies"
-                    amount="1000.00"
-                    date="12/10/2023"
-                    time="1:09 pm"
-                />
-                <ExpenseComponent
-                    expense="Samuel John"
-                    amount="5000.00"
-                    date="03/01/2023"
-                    time="12:34 pm"
-                />
-                <ExpenseComponent
-                    expense="Joseph Asemonu"
-                    amount="50.00"
-                    time="5:21 am"
-                    date="09/03/2023"
-                />
-                <ExpenseComponent
-                    expense="Aaron Will Djaba"
-                    time="8:12 am"
-                    date="21/07/2023"
-                    amount="100.00"
-                />
-                <ExpenseComponent
-                    expense="Ben"
-                    time="8:12 am"
-                    date="21/07/2023"
-                    amount="19.00"
-                />
-                <ExpenseComponent
-                    expense="Mary Cole"
-                    time="8:12 am"
-                    date="21/07/2023"
-                    amount="900.00"
-                />
-                <ExpenseComponent
-                    expense="Will Perry"
-                    time="8:12 am"
-                    date="21/07/2023"
-                    amount="20.50"
-                />
-                <ExpenseComponent
-                    expense="Maddy Nannie"
-                    time="8:12 am"
-                    date="21/07/2023"
-                    classes="mb-16"
-                    amount="1009.00"
-                />
+                {expenses?.reverse().map(
+                    (
+                        expense,
+                        index,
+                        row
+                    ) => (
+                        index + 1 === row.length ?
+                            <>
+                                <ExpenseComponent
+                                    key={index}
+                                    expense={expense.expense}
+                                    amount={expense.amount}
+                                    date={expense.date}
+                                    time={expense.time}
+                                    classes="mb-2"
+                                />
+                                <ExpenseComponent
+                                    classes="mb-2"
+                                />
+                            </> : <ExpenseComponent
+                                key={index}
+                                expense={expense.expense}
+                                amount={expense.amount}
+                                date={expense.date}
+                                time={expense.time}
+                            />
+                    ))}
             </ScrollView>
             {/* End Expenses */}
 
@@ -131,7 +162,7 @@ const ExpensesFragment = () => {
                 closeOnDragDown={true}
                 closeOnPressMask={false}
                 animationType="slide"
-                height={450}
+                height={400}
                 customStyles={{
                     container: {
                         borderTopLeftRadius: 20,
@@ -144,11 +175,11 @@ const ExpensesFragment = () => {
                 <View>
                     <View className="items-center text-center border-b border-gray-200">
                         <View className="flex-row items-center">
-                            <Text className="flex-1 font-bold ml-4 text-2xl py-3">
+                            <Text className="flex-1 font-bold ml-4 text-2xl mb-3">
                                 Add Expense
                             </Text>
                             <TouchableRipple
-                                className="mr-3"
+                                className="mr-3 mb-3"
                                 onPress={() => refRBSheet.current?.close()}
                             >
                                 <Icon type="ionicon" size={35} name="close-outline"/>
@@ -160,90 +191,33 @@ const ExpensesFragment = () => {
                         <View className="flex-1 rounded-t-xl bg-white">
                             <TextInput
                                 className="mx-2 mb-1 bg-gray-50"
-                                placeholder="Name"
+                                placeholder="Expense"
                                 onChangeText={(textValue) => {
                                     formValues.name = textValue;
                                 }}
-                                label="Name"
+                                label="Expense"
                                 mode="outlined"
                                 outlineColor="gray"
                                 activeOutlineColor="gray"
                             />
                             <TextInput
                                 className="mx-2 mb-1 bg-gray-50"
-                                placeholder="Name"
-                                label="Donation Type"
+                                placeholder="Amount"
+                                label="Amount"
                                 mode="outlined"
-                                value={donationType}
-                                editable={false}
-                                right={
-                                    <TextInput.Icon
-                                        icon="chevron-down"
-                                        onPress={() => refDonationType.current?.open()}/>
-                                }
                                 outlineColor="gray"
+                                keyboardType="phone-pad"
                                 activeOutlineColor="gray"
+                                onChangeText={(textValue) => {
+                                    formValues.address = textValue;
+                                }}
                             />
-                            {(donationType === "Money") ?
-                                <>
-                                    <TextInput
-                                        className="mx-2 mb-1 bg-gray-50"
-                                        placeholder="Payment Method"
-                                        label="Payment Method"
-                                        mode="outlined"
-                                        outlineColor="gray"
-                                        editable={false}
-                                        activeOutlineColor="gray"
-                                        value={paymentMethod}
-                                        right={
-                                            <TextInput.Icon
-                                                icon="chevron-down"
-                                                onPress={() => refPaymentMethod.current?.open()}
-                                            />
-                                        }
-                                    />
-                                    <TextInput
-                                        className="mx-2 mb-1 bg-gray-50"
-                                        placeholder="Amount"
-                                        label="Amount"
-                                        mode="outlined"
-                                        keyboardType="numeric"
-                                        outlineColor="gray"
-                                        activeOutlineColor="gray"
-                                        onChangeText={(textValue) => {
-                                            formValues.amount = textValue;
-                                        }}
-                                    />
-                                </> : <>
-                                    <TextInput
-                                        className="mx-2 mb-1 bg-gray-50"
-                                        placeholder="Item"
-                                        label="Item"
-                                        mode="outlined"
-                                        outlineColor="gray"
-                                        activeOutlineColor="gray"
-                                        onChangeText={(textValue) => {
-                                            formValues.item = textValue;
-                                        }}
-                                    />
-                                    <TextInput
-                                        className="mx-2 mb-1 bg-gray-50"
-                                        placeholder="Quantity / Size"
-                                        label="Quantity / Size"
-                                        mode="outlined"
-                                        outlineColor="gray"
-                                        activeOutlineColor="gray"
-                                        onChangeText={(textValue) => {
-                                            formValues.quantity = textValue;
-                                        }}
-                                    />
-                                </>
-                            }
                             <TextInput
                                 className="mx-2 mb-1 bg-gray-50"
-                                placeholder="Address"
-                                label="Address"
+                                placeholder="Details"
+                                label="Details"
                                 mode="outlined"
+                                multiline
                                 outlineColor="gray"
                                 activeOutlineColor="gray"
                                 onChangeText={(textValue) => {
@@ -266,124 +240,6 @@ const ExpensesFragment = () => {
                 </View>
             </RBSheet>
             {/* End Add Expense Modal */}
-
-            {/* Donation Type Modal */}
-            <RBSheet
-                ref={refDonationType}
-                closeOnDragDown={true}
-                closeOnPressMask={false}
-                animationType="slide"
-                height={150}
-                customStyles={{
-                    container: {
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20,
-                    },
-                    draggableIcon: {
-                        backgroundColor: "#000"
-                    }
-                }}>
-                <View>
-                    <View className="rounded-t-xl bg-white">
-                        <View>
-                            <TouchableOpacity
-                                onPress={
-                                    () => {
-                                        setDonationType("Money");
-                                        formValues.donationType.money = true;
-                                        formValues.donationType.item = false;
-                                        refDonationType.current?.close();
-                                    }
-                                }
-                                className="mt-1 border-b border-t border-gray-200 py-3 px-20">
-                                <Text className="text-center text-lg">Money</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={
-                                    () => {
-                                        setDonationType("Item");
-                                        formValues.donationType.item = true;
-                                        formValues.donationType.money = false;
-                                        refDonationType.current?.close();
-                                    }
-                                }
-                                className="mb-3 border-b border-gray-200 py-3 px-20">
-                                <Text className="text-center text-lg">Item</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </RBSheet>
-            {/* End Donation Type Modal */}
-
-            {/* Payment Method Modal */}
-            <RBSheet
-                ref={refPaymentMethod}
-                closeOnDragDown={true}
-                closeOnPressMask={false}
-                animationType="slide"
-                height={250}
-                customStyles={{
-                    container: {
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20,
-                    },
-                    draggableIcon: {
-                        backgroundColor: "#000"
-                    }
-                }}>
-                <View>
-                    <View className="rounded-t-xl bg-white">
-                        <View>
-                            <TouchableOpacity
-                                onPress={
-                                    () => {
-                                        setPaymentMethod("Cash");
-                                        formValues.paymentMethod = paymentMethod;
-                                        refPaymentMethod.current?.close();
-                                    }
-                                }
-                                className="mt-1 border-b border-t border-gray-200 py-3 px-20">
-                                <Text className="text-center text-lg">Cash</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={
-                                    () => {
-                                        setPaymentMethod("Cheque");
-                                        formValues.paymentMethod = paymentMethod;
-                                        refPaymentMethod.current?.close();
-                                    }
-                                }
-                                className="mb-3 border-b border-gray-200 py-3 px-20">
-                                <Text className="text-center text-lg">Cheque</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={
-                                    () => {
-                                        setPaymentMethod("Credit Card");
-                                        formValues.paymentMethod = paymentMethod;
-                                        refPaymentMethod.current?.close();
-                                    }
-                                }
-                                className="mb-3 border-b border-gray-200 py-3 px-20">
-                                <Text className="text-center text-lg">Credit Card</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={
-                                    () => {
-                                        setPaymentMethod("Mobile Money");
-                                        formValues.paymentMethod = paymentMethod;
-                                        refPaymentMethod.current?.close();
-                                    }
-                                }
-                                className="mb-3 border-b border-gray-200 py-3 px-20">
-                                <Text className="text-center text-lg">Mobile Money</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </RBSheet>
-            {/* End Payment Method Modal */}
         </SafeAreaView>
     );
 };
