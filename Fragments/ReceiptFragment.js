@@ -11,83 +11,20 @@ import {Icon} from "@rneui/base";
 import ReceiptComponent from "../Components/ReceiptComponent";
 import RBSheet from "@nonam4/react-native-bottom-sheet";
 import {TextInput, TouchableRipple} from "react-native-paper";
-import axios from 'axios';
-const baseUrl = 'https://0f19-102-176-65-86.ngrok-free.apps';
+import {getReceipts} from "../api/APIs";
+
 
 const ReceiptFragment = () => {
     const navigation = useNavigation();
     // states
     const [donationType, setDonationType] = useState("Money");
     const [paymentMethod, setPaymentMethod] = useState("Cash");
+    const [receipts, setReceipts] = useState([]);
 
     const fetchReceipts = async () => {
-        const url = `${baseUrl}/receipts/`;
-        const response = await axios.get(url);
-        console.log(response.data);
+        let response = await getReceipts();
+        setReceipts(response);
     };
-
-    fetchReceipts().then(r => console.log(r));
-
-    let receipts = [
-
-        {
-            name: "Honourable Pharaoh",
-            amount: "1000.00",
-            payment_method: "cash",
-            date: "12/10/2023",
-            time: "1:09 pm",
-        },
-        {
-            name: "Samuel John",
-            amount: "5000.00",
-            payment_method: "Bank Transfer",
-            date: "03/01/2023",
-            time: "12:34 pm",
-        },
-        {
-            name: "Joseph Asemonu",
-            amount: "50.00",
-            payment_method: "Card",
-            time: "5:21 am",
-            date: "09/03/2023",
-        },
-        {
-            name: "Aaron Will Djaba",
-            time: "8:12 am",
-            payment_method: "Cheque",
-            date: "21/07/2023",
-            amount: "100.00",
-        },
-        {
-            name: "Ben",
-            time: "8:12 am",
-            payment_method: "Cheque",
-            date: "21/07/2023",
-            amount: "19.00",
-        },
-        {
-            name: "Mary Cole",
-            time: "8:12 am",
-            payment_method: "Cash",
-            date: "21/07/2023",
-            amount: "900.00",
-        },
-        {
-            name: "Will Perry",
-            time: "8:12 am",
-            payment_method: "Cheque",
-            date: "21/07/2023",
-            amount: "20.50",
-        },
-        {
-            name: "Maddy Nannie",
-            time: "8:12 am",
-            payment_method: "Cheque",
-            date: "21/07/2023",
-            classes: "mb-24",
-            amount: "1009.00",
-        }
-    ]
 
     let [
         formValues,
@@ -99,7 +36,7 @@ const ReceiptFragment = () => {
         items: "",
         quantity: "",
         paymentMethod: "Cash",
-        amount: "",
+        amount: 0,
         address: "",
         date: "",
         time: ""
@@ -113,7 +50,8 @@ const ReceiptFragment = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false // hiding or disabling the default header from react-native
-        })
+        });
+        fetchReceipts().then();
     }, []);
 
     return (
@@ -154,19 +92,28 @@ const ReceiptFragment = () => {
                             index + 1 === row.length ?
                                 <ReceiptComponent
                                     key={index}
-                                    name={receipt.name}
-                                    amount={receipt.amount}
-                                    payment_method={receipt.payment_method}
-                                    date={receipt.date}
-                                    time={receipt.time}
+                                    money = {receipt.data.money}
+                                    item = {receipt.data.item}
+                                    items = {receipt.data.items}
+                                    quantity= {receipt.data.quantity}
+                                    name={receipt.data.name}
+                                    amount={receipt.data.amount}
+                                    payment_method={receipt.data.paymentmethod}
+                                    date={"2023-06-09"}
+                                    time={receipt.data.time}
                                     classes="mb-24"
-                                /> : <ReceiptComponent
+                                /> :
+                                <ReceiptComponent
                                     key={index}
-                                    name={receipt.name}
-                                    amount={receipt.amount}
-                                    payment_method={receipt.payment_method}
-                                    date={receipt.date}
-                                    time={receipt.time}
+                                    money = {receipt.data.money}
+                                    item = {receipt.data.item}
+                                    items = {receipt.data.items}
+                                    quantity= {receipt.data.quantity}
+                                    name={receipt.data.name}
+                                    amount={receipt.data.amount}
+                                    payment_method={receipt.data.paymentmethod}
+                                    date={"2023-06-09"}
+                                    time={receipt.data.time}
                                 />
                         ))}
             </ScrollView>
