@@ -5,6 +5,10 @@ const ReceiptComponent = (
         classes,
         name,
         amount,
+        item,
+        items,
+        money,
+        quantity,
         payment_method,
         date,
         time
@@ -20,7 +24,9 @@ const ReceiptComponent = (
                     {name}
                 </Text>
             </View>
-            <View className="flex-row">
+            { (money === 1) &&
+                <>
+                    <View className="flex-row">
                 <Text className="text-lg font-bold">
                     Amount:
                 </Text>
@@ -28,7 +34,7 @@ const ReceiptComponent = (
                     GHs. {amount}
                 </Text>
             </View>
-            <View className="flex-row">
+                    <View className="flex-row">
                 <Text className="text-lg font-bold">
                     Payment Method:
                 </Text>
@@ -36,6 +42,28 @@ const ReceiptComponent = (
                     {payment_method}
                 </Text>
             </View>
+                </>
+            }
+            { (item === 1) &&
+                <>
+                    <View className="flex-row">
+                        <Text className="text-lg font-bold">
+                            Item:
+                        </Text>
+                        <Text className="text-lg ml-2">
+                            {items}
+                        </Text>
+                    </View>
+                    <View className="flex-row">
+                        <Text className="text-lg font-bold">
+                            Quantity:
+                        </Text>
+                        <Text className="text-lg ml-2">
+                            {quantity}
+                        </Text>
+                    </View>
+                </>
+            }
             <View className="flex-row">
                 <Text className="text-lg text-gray-400">
                     {date}
@@ -50,14 +78,3 @@ const ReceiptComponent = (
 };
 
 export default ReceiptComponent;
-
-/*
-Name
-amount
-mode of payment
-date
-time
-contact
-received by
-notes
- */
